@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>GpuSwitcher</RootNamespace>
+    <AssemblyName>GpuSwitcher.Core</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="10.0.0" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0" />
+  </ItemGroup>
+
+  <!-- Hook binaries ride inside the assembly so a single downloaded .exe can unpack them (built by src\Hook\build.ps1). -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\native\gshook64.dll" LogicalName="native/gshook64.dll" Condition="Exists('..\..\native\gshook64.dll')" />
+    <EmbeddedResource Include="..\..\native\gshook32.dll" LogicalName="native/gshook32.dll" Condition="Exists('..\..\native\gshook32.dll')" />
+    <EmbeddedResource Include="..\..\native\gsinject32.exe" LogicalName="native/gsinject32.exe" Condition="Exists('..\..\native\gsinject32.exe')" />
+    <EmbeddedResource Include="..\..\native\gsinject64.exe" LogicalName="native/gsinject64.exe" Condition="Exists('..\..\native\gsinject64.exe')" />
+  </ItemGroup>
+
+</Project>
